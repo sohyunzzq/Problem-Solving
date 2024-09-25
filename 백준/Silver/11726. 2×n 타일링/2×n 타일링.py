@@ -1,18 +1,8 @@
-dp = [0, 1, 2]
-
-def tiling(num):
-	if num <= 2:
-		return num
-
-	if num-2 > len(dp) - 1:
-		dp.append(tiling(num-2))
-
-	if num-1 > len(dp) - 1:
-		dp.append(tiling(num-1))
-	
-	return dp[num-1] + dp[num-2]
+dp = [1, 1]
 
 n = int(input())
 
-ans = tiling(n)
-print(ans % 10007)
+for i in range(2, n+1):
+	dp.append(dp[i-2] + dp[i-1])
+
+print(dp[n] % 10007)
