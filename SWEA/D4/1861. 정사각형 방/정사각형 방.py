@@ -30,9 +30,6 @@ def bfs():
                 q.append([nx, ny])
                 visited[nx][ny] = 1
 
-
-visited = []
-
 for case in range(1, t + 1):
     n = int(input())
 
