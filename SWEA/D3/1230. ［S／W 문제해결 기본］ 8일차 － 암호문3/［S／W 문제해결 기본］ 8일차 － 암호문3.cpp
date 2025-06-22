@@ -3,7 +3,8 @@
 
 using namespace std;
 
-int NODE_MAX = 5000;
+#define NODE_SZ 5000
+#define endl '\n'
 
 struct Node {
 	int data;
@@ -15,32 +16,29 @@ struct Node {
 class LinkedList {
 	Node* head;
 	Node* tail;
-	vector<Node*> NodeArr;
+	vector<Node*> Nodes;
 	int NodeCnt;
 
 public:
 	LinkedList() : head(nullptr), tail(nullptr), NodeCnt(0) {
-		NodeArr.resize(NODE_MAX, nullptr);
+		Nodes.resize(NODE_SZ, nullptr);
 	}
 
-	Node* GetNewNode(int data) {
-		return NodeArr[NodeCnt++] = new Node(data);
+	Node* MakeNode(int data) {
+		return Nodes[NodeCnt++] = new Node(data);
 	}
 
-	void InsertNum(int index, vector<int> nums) {
+	void Insert(int index, vector<int> nums) {
 		int start = 0;
 
-		// 맨 앞부터 넣으래
 		if (index == 0) {
-			// 초기 상태
 			if (head == nullptr) {
-				Node* newnode = GetNewNode(nums[0]);
-				head = newnode;
+				head = MakeNode(nums[0]);
 			}
 			else {
-				Node* newnode = GetNewNode(nums[0]);
-				newnode->next = head;
-				head = newnode;
+				Node* temp = MakeNode(nums[0]);
+				temp->next = head;
+				head = temp;
 			}
 			index++;
 			start++;
@@ -51,19 +49,18 @@ public:
 			cur = cur->next;
 
 		for (int i = start; i < nums.size(); i++) {
-			Node* newnode = GetNewNode(nums[i]);
-			newnode->next = cur->next;
-			cur->next = newnode;
-			cur = newnode;
+			Node* temp = MakeNode(nums[i]);
+			temp->next = cur->next;
+			cur->next = temp;
+			cur = temp;
 		}
 
 		if (cur->next == nullptr)
 			tail = cur;
 	}
 
-	void DeleteNodes(int index, int cnt) {
+	void Delete(int index, int cnt) {
 		Node* cur = head;
-		// 헤드를 없애래
 		if (index == 0) {
 			for (int i = 0; i < cnt; i++)
 				cur = cur->next;
@@ -73,7 +70,6 @@ public:
 
 		for (int i = 1; i < index; i++)
 			cur = cur->next;
-
 		Node* temp = cur;
 
 		for (int i = 0; i < cnt; i++)
@@ -85,15 +81,15 @@ public:
 			tail = temp;
 	}
 
-	void AddTail(int data) {
-		Node* newnode = GetNewNode(data);
-		tail->next = newnode;
-		tail = newnode;
+	void Add(int data) {
+		Node* temp = MakeNode(data);
+		tail->next = temp;
+		tail = temp;
 	}
 
-	void PrintList(int cnt) {
+	void Print() {
 		Node* cur = head;
-		for (int i = 0; i < cnt; i++) {
+		for (int i = 0; i < 10; i++) {
 			cout << cur->data << " ";
 			cur = cur->next;
 		}
@@ -101,9 +97,12 @@ public:
 };
 
 int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+
 	for (int tc = 1; tc <= 10; tc++) {
 		LinkedList list;
-		
+
 		// 첫 번째 줄
 		int n;
 		cin >> n;
@@ -112,7 +111,7 @@ int main() {
 		vector<int> nums(n);
 		for (int i = 0; i < n; i++)
 			cin >> nums[i];
-		list.InsertNum(0, nums);
+		list.Insert(0, nums);
 
 		// 세 번째 줄
 		int m;
@@ -120,45 +119,40 @@ int main() {
 
 		// 네 번째 줄
 		for (int i = 0; i < m; i++) {
-			char c;
-			cin >> c;
+			char cmd;
+			cin >> cmd;
 
-			switch (c) {
+			vector<int> nums2;
+			int x, y, s;
+			switch (cmd) {
 			case 'I': {
-				int index, y;
-				cin >> index >> y;
-
-				vector<int> nums2(y);
-				for (int j = 0; j < y; j++)
+				cin >> x >> y;
+				nums2.resize(y);
+				for (int j = 0; j < y; j++) {
 					cin >> nums2[j];
-
-				list.InsertNum(index, nums2);
+				}
+				list.Insert(x, nums2);
 				break;
 			}
 			case 'D': {
-				int x, y;
 				cin >> x >> y;
-
-				list.DeleteNodes(x, y);
+				list.Delete(x, y);
 				break;
 			}
 			case 'A': {
-				int y;
 				cin >> y;
-
 				for (int j = 0; j < y; j++) {
 					int num;
 					cin >> num;
 
-					list.AddTail(num);
+					list.Add(num);
 				}
 				break;
 			}
 			}
 		}
-
 		cout << "#" << tc << " ";
-		list.PrintList(10);
+		list.Print();
 		cout << endl;
 	}
 }
