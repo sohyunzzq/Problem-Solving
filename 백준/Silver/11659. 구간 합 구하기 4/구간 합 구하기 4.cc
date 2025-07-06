@@ -15,20 +15,16 @@ int main() {
 		cin >> nums[i];
 
 	// 누적합 구하기
-	vector<long long> sum(n);
+	vector<long long> sum(n + 1);
 	sum[0] = nums[0];
-	for (int i = 1; i < n; i++)
-		sum[i] = sum[i - 1] + nums[i];
+	for (int i = 1; i <= n; i++)
+		sum[i] = sum[i - 1] + nums[i - 1];
 
 	for (int i = 0; i < m; i++) {
 		int a, b;
 		cin >> a >> b;
 
 		a--; b--;
-		if (a == 0)
-			cout << sum[b];
-		else
-			cout << sum[b] - sum[a - 1];
-		cout << endl;
+		cout << sum[b + 1] - sum[a] << endl;
 	}
 }
