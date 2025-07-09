@@ -26,6 +26,7 @@ using namespace std;
 #define UD 0
 #define LR 1
 #define endl '\n'
+#define fastio ios::sync_with_stdio(0); cin.tie(0);
 
 int n, m;
 vector<vector<int>> area;
@@ -42,7 +43,7 @@ bool InRange(int x, int y) {
 	return 0 <= x && x < n && 0 <= y && y < m;
 }
 
-void CopyArr(vector<vector<int>> *dst, vector<vector<int>> *src) {
+void CopyArr(vector<vector<int>>* dst, vector<vector<int>>* src) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
 			(*dst)[i][j] = (*src)[i][j];
@@ -157,6 +158,7 @@ void func(int curr) {
 }
 
 int main() {
+	fastio;
 	cin >> n >> m;
 	area.resize(n);
 	temp.resize(n);
