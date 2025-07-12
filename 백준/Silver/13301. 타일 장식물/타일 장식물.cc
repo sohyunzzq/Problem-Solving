@@ -2,7 +2,7 @@
 using namespace std;
 #define fastio ios::sync_with_stdio(0); cin.tie(0);
 
-#define N_SZ 27
+#define N_SZ 81
 
 int main() {
 	int n;
