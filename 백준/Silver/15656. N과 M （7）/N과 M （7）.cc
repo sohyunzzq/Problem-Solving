@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+#define endl '\n'
+
+int n, m;
+vector<int> nums;
+vector<int> selected;
+
+void func() {
+	if (selected.size() == m) {
+		for (int i = 0; i < m; i++)
+			cout << selected[i] << " ";
+		cout << endl;
+		return;
+	}
+
+	for (int i = 0; i < n; i++) {
+		selected.push_back(nums[i]);
+		func();
+		selected.pop_back();
+	}
+}
+
+int main() {
+	ios::sync_with_stdio(0); cin.tie(0);
+
+	cin >> n >> m;
+	nums.resize(n);
+
+	for (int i = 0; i < n; i++)
+		cin >> nums[i];
+	sort(nums.begin(), nums.end());
+	
+	func();
+}
