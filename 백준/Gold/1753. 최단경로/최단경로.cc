@@ -53,7 +53,7 @@ int main() {
 		dist[i] = 1e9;
 
 	dist[st] = 0;
-	pq.push({ st, -0 });
+	pq.push({ st, 0 });
 
 	Dijkstra();
 
