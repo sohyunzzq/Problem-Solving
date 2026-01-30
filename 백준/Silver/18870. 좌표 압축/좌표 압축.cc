@@ -5,6 +5,8 @@
 using namespace std;
 
 int main() {
+	ios::sync_with_stdio(0); cin.tie(0);
+
 	int n;
 	cin >> n;
 
@@ -19,10 +21,8 @@ int main() {
 	sort(tmp.begin(), tmp.end());
 	int idx = 0;
 	for (int i = 0; i < n; i++) {
-		if (match.count(tmp[i]))
-			continue;
-		
-		match[tmp[i]] = idx++;
+		if (!match.count(tmp[i]))
+			match[tmp[i]] = idx++;
 	}
 
 	for (int i = 0; i < n; i++)
